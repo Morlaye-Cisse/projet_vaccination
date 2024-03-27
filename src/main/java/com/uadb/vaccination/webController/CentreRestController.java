@@ -28,15 +28,18 @@ public class CentreRestController {
     }
 
     @PostMapping("/centres")
-    CentreVaccinationDTO saveCentreVaccination(@RequestBody CentreVaccinationDTO centreDTO,@RequestParam(name = "longitude") Long longitude,@RequestParam(name = "latitude") Long latitude)
+    CentreVaccinationDTO saveCentreVaccination(
+            @RequestBody CentreVaccinationDTO centreDTO,
+            @RequestParam(name = "longitude") String longitude,
+            @RequestParam(name = "latitude")  String latitude)
     {
         return centreService.saveCentreVaccination(centreDTO,longitude,latitude);
     }
     @PutMapping("/centres/{centreId}")
     CentreVaccinationDTO updateCentreVaccination(
             @RequestBody CentreVaccinationDTO centreDTO,
-            @RequestParam(name = "longitude") Long longitude,
-            @RequestParam(name = "latitude")  Long latitude,
+            @RequestParam(name = "longitude") String longitude,
+            @RequestParam(name = "latitude")  String latitude,
             @PathVariable(name = "centreId")  Long centreId)
     {
         centreDTO.setId(centreId);
@@ -44,7 +47,7 @@ public class CentreRestController {
     }
 
     @DeleteMapping("/centres/{centreId}")
-    void deleteCentreVaccination(Long centreId)
+    void deleteCentreVaccination(@PathVariable Long centreId)
     {
         centreService.deleteCentreVaccination(centreId);
     }

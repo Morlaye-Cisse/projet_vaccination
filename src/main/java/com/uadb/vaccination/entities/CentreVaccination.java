@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,6 @@ public class CentreVaccination {
     @OneToMany(mappedBy = "centreVaccination",fetch = FetchType.EAGER)
     List<Parent> parents;
 
-    @OneToMany(mappedBy = "centreVaccination",fetch = FetchType.EAGER)
-    List<Utilisateur> utilisateurList;
+    @OneToMany(mappedBy = "centreVaccination",fetch = FetchType.LAZY)
+    List<Utilisateur> utilisateurList=new ArrayList<>();
 }

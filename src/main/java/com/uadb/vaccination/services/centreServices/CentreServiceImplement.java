@@ -2,11 +2,14 @@ package com.uadb.vaccination.services.centreServices;
 
 import com.uadb.vaccination.dtos.CentreVaccinationDTO;
 import com.uadb.vaccination.dtos.CoordonneDTO;
+import com.uadb.vaccination.dtos.UtilisateurDTO;
 import com.uadb.vaccination.entities.CentreVaccination;
 import com.uadb.vaccination.entities.Coordonnes;
+import com.uadb.vaccination.entities.Utilisateur;
 import com.uadb.vaccination.exception.CentreNotFoundException;
 import com.uadb.vaccination.mappers.CentreVaccinationMapper;
 import com.uadb.vaccination.mappers.CoordonneMapper;
+import com.uadb.vaccination.mappers.UtilisateurMapper;
 import com.uadb.vaccination.repositories.CentreVaccinationRepository;
 import com.uadb.vaccination.repositories.CoordonnesRepository;
 import jakarta.transaction.Transactional;
@@ -24,13 +27,28 @@ public class CentreServiceImplement implements CentreService{
     CoordonnesRepository coordonnesRepository;
     CentreVaccinationMapper centreVaccinationMapper;
     private final CentreVaccinationRepository centreVaccinationRepository;
+    UtilisateurMapper utilisateurMapper;
 
     @Override
     public List<CentreVaccinationDTO> getAllCentreVaccination() {
+
         List<CentreVaccination> centres= centreVaccinationRepository.findAll();
 
         return centres.stream().map(centre ->
-                centreVaccinationMapper.fromCentreVaccination(centre)).collect(Collectors.toList());
+               {
+
+                   CentreVaccinationDTO centreDTO=centreVaccinationMapper.fromCentreVaccination(centre);
+
+                   List<UtilisateurDTO> listUserDTO=centre.getUtilisateurList().stream().map(
+                           user-> utilisateurMapper.fromUtilisateur(user)
+                   ).toList();
+
+//                   listUserDTO.stream().map(user->centreDTO.getUtilisateurDTOListDTO().add(user));
+                   centreDTO.setUtilisateurDTOListDTO(listUserDTO);
+
+                   return centreDTO;
+               }
+                ).collect(Collectors.toList());
     }
 
     @Override
@@ -43,8 +61,9 @@ public class CentreServiceImplement implements CentreService{
 
 
     @Override
-    public CentreVaccinationDTO saveCentreVaccination(CentreVaccinationDTO centreDTO,Long longitude, Long latitude) {
+    public CentreVaccinationDTO saveCentreVaccination(CentreVaccinationDTO centreDTO,String longitude,String latitude) {
         CoordonneDTO coordonneDTO=saveCoordonne(longitude,latitude);
+
         centreDTO.setCoordonneDTO(coordonneDTO);
 
         CentreVaccination centre=centreVaccinationMapper.fromCentreVaccinationDTO(centreDTO);
@@ -54,7 +73,7 @@ public class CentreServiceImplement implements CentreService{
     }
 
     @Override
-    public CentreVaccinationDTO updateCentreVaccination(CentreVaccinationDTO centreDTO,Long longitude, Long latitude) {
+    public CentreVaccinationDTO updateCentreVaccination(CentreVaccinationDTO centreDTO,String longitude,String latitude) {
         CoordonneDTO coordonneDTO=saveCoordonne(longitude,latitude);
         centreDTO.setCoordonneDTO(coordonneDTO);
 
@@ -72,10 +91,12 @@ public class CentreServiceImplement implements CentreService{
 
 
     @Override
-    public CoordonneDTO saveCoordonne(Long longitude, Long latitude) {
+    public CoordonneDTO saveCoordonne(String longitude,String latitude) {
         Coordonnes coordonnes=new Coordonnes();
         coordonnes.setLatitude(latitude);
         coordonnes.setLongitude(longitude);
+        coordonnesRepository.save(coordonnes);
+
         return coordonneMapper.fromCoordonne(coordonnes);
     }
 

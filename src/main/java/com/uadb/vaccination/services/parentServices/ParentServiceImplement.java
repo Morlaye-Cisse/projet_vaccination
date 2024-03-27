@@ -40,11 +40,16 @@ public class ParentServiceImplement implements ParentService {
         CentreVaccinationDTO centreDTO= centreVaccinationMapper.fromCentreVaccination(centre);
         parentDTO.setCentreVaccinationDTO(centreDTO);
 
+        centreDTO.getParentsDTO().add(parentDTO);
+
         //ajouter la date du systeme
         parentDTO.setDateInscription(new Date());
 
         //conversion du parentDTO en parent
         Parent parent=parentMapper.fromParentDTO(parentDTO);
+
+        centre.getParents().add(parent);
+
         //enregistrement
         Parent saveParent=parentRepository.save(parent);
 

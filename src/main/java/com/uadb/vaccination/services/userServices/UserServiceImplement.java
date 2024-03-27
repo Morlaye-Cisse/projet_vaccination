@@ -11,7 +11,6 @@ import com.uadb.vaccination.mappers.CentreVaccinationMapper;
 import com.uadb.vaccination.mappers.UtilisateurMapper;
 import com.uadb.vaccination.repositories.CentreVaccinationRepository;
 import com.uadb.vaccination.repositories.UserRepository;
-import com.uadb.vaccination.services.userServices.UserService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +33,17 @@ public class UserServiceImplement implements UserService {
 
     @Override
     public UtilisateurDTO saveUser(UtilisateurDTO utilisateurDTO,Long centreId) throws CentreNotFoundException {
+        //Si le user est ROLE_ADMIN
+             //recuperation du centre en fonction du id sectionner
+        //Si le user est medecin
+            //recuperation du centre en fonction du cemtre du medecin
 
         CentreVaccination centre=centreVaccinationRepository.findById(centreId)
-                .orElseThrow(() -> new CentreNotFoundException("centre vaccination introuvable"));
-
+                    .orElseThrow(() -> new CentreNotFoundException("centre vaccination introuvable"));
 
         CentreVaccinationDTO centreDTO=centreVaccinationMapper.fromCentreVaccination(centre);
         utilisateurDTO.setCentreVaccinationDTO(centreDTO);
+
 
         //transfere des donnees de userDTO ver user
         Utilisateur utilisateur=utilisateurMapper.fromUtilisateurDTO(utilisateurDTO);
@@ -49,6 +52,7 @@ public class UserServiceImplement implements UserService {
 
         //enregistrer user
         Utilisateur saveUser=userRepository.save(utilisateur);
+
         //retourner utilisateurDTO
         return utilisateurMapper.fromUtilisateur(saveUser);
     }

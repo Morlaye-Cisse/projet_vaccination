@@ -4,6 +4,7 @@ import com.uadb.vaccination.entities.Coordonnes;
 import lombok.Data;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,5 +15,7 @@ public class CentreVaccinationDTO {
     private LocalTime heurreOuverture;
     private LocalTime heurreFermeture;
     private CoordonneDTO coordonneDTO;
-    private List<UtilisateurDTO> utilisateurDTOList;
+    private List<UtilisateurDTO> utilisateurDTOListDTO=new ArrayList<>();
+    private List<ParentDTO> parentsDTO;
+
 }

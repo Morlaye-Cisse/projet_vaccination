@@ -9,10 +9,10 @@ import java.util.List;
 public interface CentreService {
     List<CentreVaccinationDTO> getAllCentreVaccination();
     CentreVaccinationDTO getCentreVaccination(Long centreId) throws CentreNotFoundException;
-    CentreVaccinationDTO saveCentreVaccination(CentreVaccinationDTO centreDTO,Long longitude, Long latitude);
-    CentreVaccinationDTO updateCentreVaccination(CentreVaccinationDTO centreDTO,Long longitude, Long latitude);
+    CentreVaccinationDTO saveCentreVaccination(CentreVaccinationDTO centreDTO,String longitude, String latitude);
+    CentreVaccinationDTO updateCentreVaccination(CentreVaccinationDTO centreDTO,String longitude, String latitude);
     void deleteCentreVaccination(Long centreId);
-    CoordonneDTO saveCoordonne(Long longitude,Long latitude);
+    CoordonneDTO saveCoordonne(String longitude,String latitude);
     void deleteCoordonne(Long coordId);
 
 }

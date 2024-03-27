@@ -19,7 +19,7 @@ public class Utilisateur
     private String prenom;
     private String telephone;
     @Column(unique = true) //indique que ce colonne est unique
-    private String username;
+    private String email;
     private String address;
 
     @ManyToOne

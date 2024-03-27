@@ -17,8 +17,8 @@ public class Coordonnes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    private Long longitude;
-    private Long latitude;
+    private String longitude;
+    private String latitude;
 
     @ManyToOne
     @JoinColumn(name = "coordonnes_id")
