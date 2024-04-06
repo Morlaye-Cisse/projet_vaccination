@@ -33,6 +33,6 @@ public class CentreVaccination {
     @OneToMany(mappedBy = "centreVaccination",fetch = FetchType.EAGER)
     List<Parent> parents;
 
-    @OneToMany(mappedBy = "centreVaccination",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "centreVaccination",fetch = FetchType.EAGER)
     List<Utilisateur> utilisateurList=new ArrayList<>();
 }

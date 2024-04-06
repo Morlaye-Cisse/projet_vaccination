@@ -20,7 +20,7 @@ public class Enfant {
 
     private String prenom;
     private String nom;
-    private LocalDate dateNaissance;
+    private String dateNaissance;
     private String genre;
 
     //plusieur enfant pour un parents

@@ -14,5 +14,4 @@ public interface ParentService {
     ParentDTO getParentDTO(Long parentId) throws ParentNotFoundException;
     ParentDTO updateParentDTO(ParentDTO parentDTO);
     void deleteParentDTO(Long parentId);
-    List<ParentDTO> getParentSearch(String telephone);
 }

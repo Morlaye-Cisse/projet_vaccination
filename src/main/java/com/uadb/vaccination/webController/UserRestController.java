@@ -47,7 +47,7 @@ public class UserRestController {
         userService.deleteUser(userId);
     }
     @GetMapping("/users/search")
-    public List<UtilisateurDTO> getUserSearch(@RequestParam(name = "email", defaultValue = "") String email,@RequestParam(name = "telephone", defaultValue = "") String telephone)
+    public List<UtilisateurDTO> getUserSearch(@RequestParam(name = "email", defaultValue = "") String email,@RequestParam(name = "telephone", defaultValue = "") Long telephone)
     {
         return userService.getUserSearch(email,telephone);
     }

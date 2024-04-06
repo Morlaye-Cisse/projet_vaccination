@@ -6,9 +6,8 @@ import lombok.Data;
 @Data
 public class VaccinDTO {
     private Long id;
-
-    private String nom;
-    private String numero_lot;
-    private String maladie_cible;
-    private String effet_secondaire;
+    private String nomVaccin;
+    private String numeroLot;
+    private String maladieCible;
+    private String effetSecondaire;
 }

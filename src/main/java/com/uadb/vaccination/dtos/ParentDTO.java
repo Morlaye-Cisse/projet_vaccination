@@ -15,7 +15,7 @@ public class ParentDTO {
     private Long id;
     private String nom;
     private String prenom;
-    private String telephone;
+    private Long telephone;
     private String adress;
     private String lienParental;
     private Date dateInscription;

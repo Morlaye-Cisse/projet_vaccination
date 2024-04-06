@@ -15,12 +15,11 @@ public class Vaccin {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String nom;
-    private String numero_lot;
+    private String nomVaccin;
+    private String numeroLot;
     //definir un colonne de type texte
     @Column(name = "maladie_cible",columnDefinition = "TEXT")
-    private String maladie_cible;
+    private String maladieCible;
     @Column(name = "effet_secondaire",columnDefinition = "TEXT")
-    private String effet_secondaire;
-
+    private String effetSecondaire;
 }

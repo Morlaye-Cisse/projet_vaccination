@@ -1,6 +1,8 @@
 package com.uadb.vaccination.mappers;
 
+import com.uadb.vaccination.dtos.VaccinDTO;
 import com.uadb.vaccination.dtos.VaccinationDTO;
+import com.uadb.vaccination.entities.Vaccin;
 import com.uadb.vaccination.entities.Vaccination;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -9,19 +11,19 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class VaccinMapper {
-    public VaccinationDTO fromVaccination(Vaccination vaccination)
+    public VaccinDTO fromVaccin(Vaccin vaccin)
     {
-        VaccinationDTO vaccinationDTO=new VaccinationDTO();
-        BeanUtils.copyProperties(vaccination,vaccinationDTO);
+        VaccinDTO vaccinDTO=new VaccinDTO();
+        BeanUtils.copyProperties(vaccin,vaccinDTO);
 
-        return vaccinationDTO;
+        return vaccinDTO;
     }
 
-    public Vaccination fromVaccinationDTO(VaccinationDTO vaccinationDTO)
+    public Vaccin fromVaccinDTO(VaccinDTO vaccinDTO)
     {
-        Vaccination vaccination=new Vaccination();
-        BeanUtils.copyProperties(vaccinationDTO,vaccination);
+        Vaccin vaccin=new Vaccin();
+        BeanUtils.copyProperties(vaccinDTO,vaccin);
 
-        return vaccination;
+        return vaccin;
     }
 }

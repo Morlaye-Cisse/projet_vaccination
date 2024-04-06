@@ -13,5 +13,5 @@ public interface UserService {
     UtilisateurDTO getUser(Long userId) throws UserNotFoundException;
     UtilisateurDTO updateUser(UtilisateurDTO utilisateurDTO);
     void deleteUser(Long userId);
-    List<UtilisateurDTO> getUserSearch(String email, String telephone);
+    List<UtilisateurDTO> getUserSearch(String email, Long telephone);
 }

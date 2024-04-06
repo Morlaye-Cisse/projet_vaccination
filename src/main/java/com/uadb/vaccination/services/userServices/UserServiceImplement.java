@@ -90,7 +90,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public List<UtilisateurDTO> getUserSearch(String email, String telephone) {
+    public List<UtilisateurDTO> getUserSearch(String email, Long telephone) {
 
         List<Utilisateur> utilisateurs= userRepository.findByEmailContainsIgnoreCaseAndTelephoneContainsIgnoreCase(email,telephone);
         //recuperer la liste a partir du telephone

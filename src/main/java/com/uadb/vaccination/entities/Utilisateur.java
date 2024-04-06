@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @AllArgsConstructor
@@ -25,4 +28,8 @@ public class Utilisateur
     @ManyToOne
     @JoinColumn(name = "centre_vaccination_id")
     private CentreVaccination centreVaccination;
+
+    @OneToMany(mappedBy = "utilisateur", orphanRemoval = true)
+    private List<Rv> rvs = new ArrayList<>();
+
 }

@@ -19,7 +19,7 @@ public class Parent {
     private String nom;
     private String prenom;
     @Column(unique = true) //indique que ce colonne est unique
-    private String telephone;
+    private Long telephone;
     private String adress;
     private String lienParental;
     private Date dateInscription;
@@ -28,10 +28,13 @@ public class Parent {
     @ManyToOne
     private CentreVaccination centreVaccination;
 
-    //un parent pour plusieur enfants
+    //un parent pour plusieur enfants`
     @OneToMany(mappedBy ="parent",fetch = FetchType.EAGER)
     private List<Enfant> enfants;
 
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "rv_id")
+    private Rv rv;
 
 //    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
 //    private List<Enfant> children = new ArrayList<>();

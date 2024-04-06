@@ -27,7 +27,7 @@ public class ParentRestController {
         return parentService.getParentDTO(parentId);
     }
 
-    //Enregistrement d'un parent
+//    Enregistrement d'un parent
     @PostMapping("/parents/{userEmail}")
     public ParentDTO saveParentDTO(@RequestBody ParentDTO parentDTO,@PathVariable(name = "userEmail")  String userEmail) throws ParentNotFoundException
     {
@@ -45,10 +45,5 @@ public class ParentRestController {
     public void deleteParent(@PathVariable(name = "id") Long parentId)
     {
         parentService.deleteParentDTO(parentId);
-    }
-    @GetMapping("/parents/search")
-    public List<ParentDTO> getParentSearch(@RequestParam(name = "telephone", defaultValue = "") String telephone)
-    {
-        return parentService.getParentSearch(telephone);
     }
 }

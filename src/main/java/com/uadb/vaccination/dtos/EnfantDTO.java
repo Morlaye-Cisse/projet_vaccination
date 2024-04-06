@@ -3,6 +3,7 @@ package com.uadb.vaccination.dtos;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class EnfantDTO {
@@ -10,7 +11,7 @@ public class EnfantDTO {
 
     private String prenom;
     private String nom;
-    private LocalDate dateNaissance;
+    private String dateNaissance;
     private String genre;
     private ParentDTO parentDTO;
 }

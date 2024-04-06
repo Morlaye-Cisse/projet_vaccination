@@ -5,12 +5,12 @@ import com.uadb.vaccination.dtos.ParentDTO;
 import com.uadb.vaccination.entities.CentreVaccination;
 import com.uadb.vaccination.entities.Parent;
 import com.uadb.vaccination.exception.ParentNotFoundException;
+import com.uadb.vaccination.exception.UserNotFoundException;
 import com.uadb.vaccination.mappers.CentreVaccinationMapper;
 import com.uadb.vaccination.mappers.ParentMapper;
 import com.uadb.vaccination.repositories.CentreVaccinationRepository;
 import com.uadb.vaccination.repositories.ParentRepository;
 import com.uadb.vaccination.repositories.UserRepository;
-import com.uadb.vaccination.services.parentServices.ParentService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,13 +34,21 @@ public class ParentServiceImplement implements ParentService {
         //email du user logged
         //id du centre grace a email du user logged
         //recuperation du centre grace a id centre
-        CentreVaccination centre= userRepository.findByEmail(userEmail).getCentreVaccination();
+        CentreVaccination centre= centreVaccinationRepository.findCentreVaccinationByUtilisateurList_EmailIgnoreCase(userEmail);
+        if(centre==null)
+            throw new UserNotFoundException("centre de l'utilisateur introuvable");
+
+        //verifier si l'utilisateur existe
+        Parent parentTel= parentRepository.findByTelephone(parentDTO.getTelephone());
+        if(parentTel != null)
+            throw new UserNotFoundException("l'utilisateur existe dejat !");
 
         //conversion en centre...DTO
         CentreVaccinationDTO centreDTO= centreVaccinationMapper.fromCentreVaccination(centre);
         parentDTO.setCentreVaccinationDTO(centreDTO);
 
-        centreDTO.getParentsDTO().add(parentDTO);
+        //ajouter le parent dans la liste des parents du centre
+//        centreDTO.getParentsDTO().add(parentDTO);
 
         //ajouter la date du systeme
         parentDTO.setDateInscription(new Date());
@@ -82,17 +90,5 @@ public class ParentServiceImplement implements ParentService {
     @Override
     public void deleteParentDTO(Long parentId) {
         parentRepository.deleteById(parentId);
-    }
-
-    @Override
-    public List<ParentDTO> getParentSearch(String telephone) {
-
-
-        List<Parent> parentList=parentRepository.findByTelephoneContainsIgnoreCase(telephone);
-        //recuperer la liste a partir du telephone
-//        List<Utilisateur> utilisateurs= userRepository.findByTelephoneContainsIgnoreCase(telephone);
-
-        return parentList.stream().map(user->parentMapper.fromParent(user))
-                .collect(Collectors.toList());
     }
 }

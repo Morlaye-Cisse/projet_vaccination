@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,24 +32,40 @@ public class CentreServiceImplement implements CentreService{
 
     @Override
     public List<CentreVaccinationDTO> getAllCentreVaccination() {
-
+        //        return centres.stream().map(centre ->
+//               {
+//
+//                   CentreVaccinationDTO centreDTO=centreVaccinationMapper.fromCentreVaccination(centre);
+//
+//                   List<UtilisateurDTO> listUserDTO=centre.getUtilisateurList().stream().map(
+//                           user-> utilisateurMapper.fromUtilisateur(user)
+//                   ).toList();
+//
+////                   listUserDTO.stream().map(user->centreDTO.getUtilisateurDTOListDTO().add(user));
+//                   centreDTO.setUtilisateurDTOListDTO(listUserDTO);
+//
+//                   return centreDTO;
+//               }
+//                ).toList();
         List<CentreVaccination> centres= centreVaccinationRepository.findAll();
+        List<CentreVaccinationDTO> centreDTOs=new ArrayList<>();
 
-        return centres.stream().map(centre ->
-               {
+        for(CentreVaccination centre:centres)
+        {
+            CentreVaccinationDTO centreDTO=centreVaccinationMapper.fromCentreVaccination(centre);
+            List<UtilisateurDTO> userDTOs=new ArrayList<>();
 
-                   CentreVaccinationDTO centreDTO=centreVaccinationMapper.fromCentreVaccination(centre);
+            for (Utilisateur user:centre.getUtilisateurList())
+            {
+                UtilisateurDTO userDTO=utilisateurMapper.fromUtilisateur(user);
+                userDTOs.add(userDTO);
+            }
+            centreDTO.setUtilisateurDTOListDTO(userDTOs);
 
-                   List<UtilisateurDTO> listUserDTO=centre.getUtilisateurList().stream().map(
-                           user-> utilisateurMapper.fromUtilisateur(user)
-                   ).toList();
+            centreDTOs.add(centreDTO);
+        }
 
-//                   listUserDTO.stream().map(user->centreDTO.getUtilisateurDTOListDTO().add(user));
-                   centreDTO.setUtilisateurDTOListDTO(listUserDTO);
-
-                   return centreDTO;
-               }
-                ).collect(Collectors.toList());
+        return centreDTOs;
     }
 
     @Override

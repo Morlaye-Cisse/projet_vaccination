@@ -17,5 +17,4 @@ public class CentreVaccinationDTO {
     private CoordonneDTO coordonneDTO;
     private List<UtilisateurDTO> utilisateurDTOListDTO=new ArrayList<>();
     private List<ParentDTO> parentsDTO;
-
 }
